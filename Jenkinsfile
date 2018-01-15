@@ -2,17 +2,7 @@
 
 node {
 
-    stage('stop server')
-    {
-       sh "sudo service store stop"
-    }
-
-    stage('start server')
-    {
-       sh "sudo service store start"
-    }
-
-    stage('checkout') {
+   stage('checkout') {
         checkout scm
     }
 
@@ -20,9 +10,7 @@ node {
        sh "java -version"
     }
 
-
-
-     stage('clean') {
+    stage('clean') {
        sh "chmod +x gradlew"
        sh "./gradlew clean --no-daemon"
      }
@@ -67,5 +55,15 @@ node {
         sh "cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
         sh "chown jenkins:jenkins /home/store-server-api/store.war"
         sh "chmod 500 /home/store-server-api/store.war"
+     }
+
+     stage('stop server')
+     {
+        sh "sudo service store stop"
+     }
+
+     stage('start server')
+     {
+        sh "sudo service store start"
      }
 }
