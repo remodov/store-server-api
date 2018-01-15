@@ -11,7 +11,9 @@ node {
 
     stage('copy artifact')
     {
-             sh "cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
+       sh "cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
+       sh "sudo chown jenkins:jenkins /home/store-server-api/store.war"
+       sh "sudo chmod 500 /home/store-server-api/store.war"
     }
 
      stage('clean') {
