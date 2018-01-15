@@ -49,10 +49,6 @@ node {
             sh "./gradlew sonarqube --no-daemon"
      }
 
-     stage('quality analysis') {
-          sh "./gradlew sonarqube --no-daemon"
-     }
-
      stage('copy artifact')
      {
          sh "sudo cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
