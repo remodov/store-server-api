@@ -4,12 +4,12 @@ node {
 
     stage('stop server')
     {
-       sh "sudo service store-server-api stop"
+       sh "service store-server-api stop"
     }
 
     stage('start server')
     {
-       sh "sudo service store-server-api start"
+       sh "service store-server-api start"
     }
 
     stage('checkout') {
