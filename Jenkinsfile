@@ -1,6 +1,17 @@
 #!/usr/bin/env groovy
 
 node {
+
+    stage('stop server')
+    {
+       sh "service store-server-api stop"
+    }
+
+    stage('start server')
+    {
+       sh "service store-server-api start"
+    }
+
     stage('checkout') {
         checkout scm
     }
@@ -9,12 +20,7 @@ node {
        sh "java -version"
     }
 
-    stage('copy artifact')
-    {
-       sh "cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
-       sh "chown jenkins:jenkins /home/store-server-api/store.war"
-       sh "chmod 500 /home/store-server-api/store.war"
-    }
+
 
      stage('clean') {
        sh "chmod +x gradlew"
@@ -56,5 +62,10 @@ node {
             sh "./gradlew sonarqube --no-daemon"
      }
 
-
+     stage('copy artifact')
+     {
+        sh "cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
+        sh "chown jenkins:jenkins /home/store-server-api/store.war"
+        sh "chmod 500 /home/store-server-api/store.war"
+     }
 }
