@@ -9,6 +9,11 @@ node {
        sh "java -version"
     }
 
+    stage('copy artifact')
+    {
+             sh "cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
+    }
+
      stage('clean') {
        sh "chmod +x gradlew"
        sh "./gradlew clean --no-daemon"
@@ -49,8 +54,5 @@ node {
             sh "./gradlew sonarqube --no-daemon"
      }
 
-     stage('copy artifact')
-     {
-         sh "sudo cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
-     }
+
 }
