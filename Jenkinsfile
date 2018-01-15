@@ -46,8 +46,6 @@ node {
      }
 
      stage('quality analysis') {
-        withSonarQubeEnv('Sonar') {
             sh "./gradlew sonarqube --no-daemon"
-        }
      }
 }
