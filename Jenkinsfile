@@ -54,7 +54,7 @@ node {
      {
         sh "cp /var/lib/jenkins/jobs/store-server-api/builds/lastSuccessfulBuild/archive/build/libs/store-0.0.1-SNAPSHOT.war /home/store-server-api/store.war"
         sh "chown jenkins:jenkins /home/store-server-api/store.war"
-        sh "chmod 500 /home/store-server-api/store.war"
+        sh "chmod 777 /home/store-server-api/store.war"
      }
 
      stage('stop server')
