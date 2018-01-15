@@ -36,4 +36,15 @@ public class LogsResource {
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         context.getLogger(jsonLogger.getName()).setLevel(Level.valueOf(jsonLogger.getLevel()));
     }
+
+
+    @GetMapping("/logs2")
+    @Timed
+    public List<LoggerVM> getListv2() {
+        LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+        return context.getLoggerList()
+            .stream()
+            .map(LoggerVM::new)
+            .collect(Collectors.toList());
+    }
 }
