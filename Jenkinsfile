@@ -5,6 +5,19 @@ node {
         checkout scm
     }
 
+    stage('check java') {
+       sh "java -version"
+    }
+
+     stage('clean') {
+       sh "chmod +x gradlew"
+       sh "./gradlew clean --no-daemon"
+     }
+
+     stage('install tools') {
+        sh "./gradlew yarn_install -PnodeInstall --no-daemon"
+     }
+
     gitlabCommitStatus('build') {
         docker.image('openjdk:8').inside('-u root -e GRADLE_USER_HOME=.gradle') {
             stage('check java') {
